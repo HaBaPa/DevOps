@@ -1,20 +1,20 @@
-# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
+# Sử dụng Node.js LTS
+FROM node:18
 
-# Copy file .csproj (đúng thư mục con)
-COPY LearnKing.Api/*.csproj ./LearnKing.Api/
-RUN dotnet restore ./LearnKing.Api/LearnKing.Api.csproj
+# Thư mục làm việc
+WORKDIR /app
+
+# Copy file package.json và package-lock.json
+COPY package*.json ./
+
+# Cài đặt dependencies
+RUN npm install
 
 # Copy toàn bộ source code
 COPY . .
 
-WORKDIR /src/LearnKing.Api
-RUN dotnet publish -c Release -o /app/publish
+# Expose port (ví dụ 3000)
+EXPOSE 3000
 
-# Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
-WORKDIR /app
-COPY --from=build /app/publish .
-EXPOSE 86
-ENTRYPOINT ["dotnet", "LearnKing.Api.dll"]
+# Lệnh chạy app
+CMD ["node", "src/index.js"]
