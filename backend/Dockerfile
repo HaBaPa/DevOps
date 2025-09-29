@@ -2,10 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-COPY *.csproj ./
-RUN dotnet restore
+# Copy file .csproj (đúng thư mục con)
+COPY LearnKing.Api/*.csproj ./LearnKing.Api/
+RUN dotnet restore ./LearnKing.Api/LearnKing.Api.csproj
 
+# Copy toàn bộ source code
 COPY . .
+
+WORKDIR /src/LearnKing.Api
 RUN dotnet publish -c Release -o /app/publish
 
 # Stage 2: Runtime
