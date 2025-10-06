@@ -21,11 +21,10 @@ jobs:
       - name: Build and Push Backend
         uses: docker/build-push-action@v4
         with:
-          context: ./backend     # 📌 đổi đúng thư mục backend
+          context: ./backend    
           file: ./backend/Dockerfile
           push: true
-          tags: habapa2k4/devops:backend-latest   # 📌 đúng repo Docker Hub
-
+          tags: habapa2k4/devops:backend-latest   
       # Build & push frontend
       - name: Build and Push Frontend
         uses: docker/build-push-action@v4
@@ -33,4 +32,4 @@ jobs:
           context: ./learnking-frontend
           file: ./learnking-frontend/Dockerfile
           push: true
-          tags: habapa2k4/devops:frontend-latest  # 📌 đúng repo Docker Hub
+          tags: habapa2k4/devops:frontend-latest  
