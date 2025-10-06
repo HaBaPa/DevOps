@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  web:
+    image: ${DOCKER_USERNAME}DevOps:latest
+    container_name: DevOps
+    ports:
+      - "8080:80"
+    restart: always
